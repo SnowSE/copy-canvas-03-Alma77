@@ -1,0 +1,8 @@
+.content-layout{
+    background: rgba(255,255,255,.95);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: space-around;
+}

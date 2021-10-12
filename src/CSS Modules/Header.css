@@ -1,0 +1,101 @@
+.content-main{
+    position: relative;
+    flex-direction: row;
+    display: flex;
+    padding-left: 4rem;
+    min-width: 90%;
+}
+
+.todoList{
+    box-sizing: border-box;
+    flex-direction: column;
+    position: absolute;
+    height: auto;
+    display: flex;
+    width: 20%;
+    top: 0;
+    right: 0;
+    padding-right: 20px;
+    margin-top: 1rem;
+    width: 15%;
+    padding-left: 24px;
+}
+
+.side-bar{
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 60px;
+    z-index: 100;
+    background-color: #013767;
+}
+
+.logo{
+    width: 60px;
+}
+
+.icon{
+    color: white;
+    width: 28px;
+    font-size: 11px;
+}
+
+.icon-wrapper{
+    padding: 5px;
+    text-align: center;
+}
+
+.icon-wrapper:hover{
+    background-color: #032f55;
+}
+
+.header-layout{
+    height: auto;
+    min-height: 4.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #c7cdd1;
+    background: rgba(255,255,255,.95);
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    text-indent: 1rem;
+}
+
+.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    flex: 1;
+    padding-right: 12px;
+    box-sizing: border-box;
+    font-weight: normal;
+    font-size: 1.8em;
+    line-height: 1.5;
+}
+
+.container {
+    box-sizing: border-box;
+    position: absolute;
+    width: max-content;
+    margin: 1rem;
+    padding-left: 1rem;
+    top: 0;
+    left: 1;
+}
+
+h1, h2, .h1, .h2 {
+    font-size: 1.8em;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: normal;
+}
+
+div{
+    display: block;
+}
