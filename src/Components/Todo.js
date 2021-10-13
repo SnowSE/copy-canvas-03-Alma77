@@ -2,7 +2,7 @@
 const Todo = (todo) => {
     return (
         <li>
-            <div><a href="">{todo.name}</a></div>
+            <div><button className="btn btn-link" onClick={() => todo.ShowDetailViewHandler(todo.id)}>{todo.name}</button></div>
             <div><bold>{todo.description}</bold></div>
             <div><sub>{(todo.due)}</sub></div>
             <div>

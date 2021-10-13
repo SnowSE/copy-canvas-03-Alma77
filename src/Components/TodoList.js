@@ -21,7 +21,7 @@ const TodoList = (props) =>{
 
     let showMoreView = (
         <ul className="list-group">{props.todoList.map(todo =>
-                <Todo key={todo.id} id={todo.id} name={todo.name} description={todo.description} due={todo.due_at} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+                <Todo key={todo.id} id={todo.id} name={todo.name} description={todo.description} due={todo.due_at} deleteHandler={deleteHandler} updateHandler={updateHandler} ShowDetailViewHandler={props.ShowDetailViewHandler}/>
             )            
         }</ul>
     )
@@ -38,7 +38,7 @@ const TodoList = (props) =>{
 
     let showLessView = (
         <ul className="list-group">{filteredList.map(todo =>
-            <Todo key={todo.id} id={todo.id} name={todo.name} description={todo.description} due={todo.due_at} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
+            <Todo key={todo.id} id={todo.id} name={todo.name} description={todo.description} due={todo.due_at} deleteHandler={deleteHandler} updateHandler={updateHandler} ShowDetailViewHandler={props.ShowDetailViewHandler}/>
         )            
     }</ul>
     )

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 
-const Rubric = () => {
+const Rubric = (props) => {
 
     return(
-        <div className="row border">
-            <div className="col-12 p-2 border">
+        <form>
+            <div className="col-12 p-2 border-bottom">
                 <lablel><strong>Title:</strong></lablel>
-                <input type="text" className="m-1 w-33"/>
+                <input value={props.assignment.name} type="text" className="m-1 w-33"/>
             </div>
             <div className="row">
                 <div className="col-4 text-center p-3">
@@ -36,10 +36,10 @@ const Rubric = () => {
                 </div>
             </div>
             <div className="row border-top">
-                <button className="col-2 btn btn-light m-2">Cancel</button>
+                <button className="col-2 btn btn-light m-2" onClick={props.HideRubricFormHandler}>Cancel</button>
                 <button className="col-3 btn btn-primary m-2">Create Rubric</button>
             </div>
-        </div>
+        </form>
     )
 }
 

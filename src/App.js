@@ -15,11 +15,14 @@ import Content from './CSS Modules/Content.css';
 import TodoList from './Components/TodoList.js';
 import AssignmentForm from './Components/AssignmentForm';
 import axios from 'axios'
+import Rubric from './Components/Rubric'
+import AssignmentDetail from './Components/AssignmentDetail';
 
 function App() {
 
   const [showMore, setShowMore] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [showNewAssignmentForm, setShowNewAssignmentForm] = useState(false);
+  const [showDetailView, setShowDetailView] = useState(false);
   const [currentAssignment, setCurrentAssignment] = useState({
     id: "",
     name: "",
@@ -45,23 +48,33 @@ function App() {
   }
 
   const ShowFormHandler = (event) =>{
-    setShowForm(true);
+    setShowNewAssignmentForm(true);
+  }
+
+  const ShowDetailViewHandler = async (key) =>{
+    const assignment = await axios.get(baseURL + '/courses/' + courseID + '/assignments/' + key, header)
+    setCurrentAssignment(assignment.data)
+    setShowDetailView(true)
+  }
+
+  const HideDetailViewHandler = () =>{
+    setShowDetailView(false);
   }
 
   const UpdateFormHandler = async (key) => {
     const assignment = await axios.get(baseURL + '/courses/' + courseID + '/assignments/' + key, header)
     console.log(assignment.data)
-    setShowForm(true)
+    setShowNewAssignmentForm(true)
     setCurrentAssignment(assignment.data)
     setIsUpdating(true);
   }
 
   const HideFormHandler = (event) =>{
-    setShowForm(false);
+    setShowNewAssignmentForm(false);
   }
 
   const baseURL = "api/v1";
-  const Token = 'Bearer 8Cq6OcZcP8fprRpj8fWAgCtX6YuieNHwBo8uQ9yZNWkXfI38t5FmmPN2b77xNy62';
+  const Token = 'Bearer Xas3fa0ZJqqIRzhL10ZNS8D7JSOIQQ1r0SzbpDbc0LOp2CH2dHvoovFrap9CP7ys';
     const courseID = '27';
     const header = { 
         headers: {
@@ -105,8 +118,12 @@ function App() {
         GetCourses();
     },[])
 
-  const formView = (
+  const newAssignmentFormView = (
     <AssignmentForm isUpdating={isUpdating} AddAssignment={AddAssignment} UpdateAssignment={UpdateAssignment} currentAssignment={currentAssignment} HideFormHandler={HideFormHandler}/>
+  )
+
+  const assignmentDetailView = (
+    <AssignmentDetail content={currentAssignment} HideDetailViewHandler={HideDetailViewHandler}/>
   )
 
   return (
@@ -149,14 +166,14 @@ function App() {
             <CourseList courseList={courseList} ShowFormHandler={ShowFormHandler} DeleteAssignment={DeleteAssignment}/>
             <span></span>
           </div>  
-            {showForm ? formView : <span></span>}
-                    
+            {showNewAssignmentForm ? newAssignmentFormView : <span></span>}
+            {showDetailView ? assignmentDetailView : <span></span>} 
         </div>
         <div className="todoList">
           <div className="header-layout">
             <h6>To Do</h6>
           </div>
-          <TodoList todoList={todoList} showMore={showMore} ShowFormHandler={ShowFormHandler} ShowMoreHandler={ShowMoreHandler} ShowLessHandler={ShowLessHandler} DeleteAssignment={DeleteAssignment} UpdateFormHandler={UpdateFormHandler}/>
+          <TodoList todoList={todoList} showMore={showMore} ShowFormHandler={ShowFormHandler} ShowMoreHandler={ShowMoreHandler} ShowLessHandler={ShowLessHandler} DeleteAssignment={DeleteAssignment} UpdateFormHandler={UpdateFormHandler} ShowDetailViewHandler={ShowDetailViewHandler}/>
         </div>
       </div>    
     </div>
