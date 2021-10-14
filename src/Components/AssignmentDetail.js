@@ -13,9 +13,9 @@ const AssignmentDetail = (props) => {
     )
 
     return(
-        <div className="border p-5">
+        <div className="border p-5 shadow">
             <div className="row">
-                <div className="col-6 border">
+                <div className="col-5 border">
                     <div className="row ">
                         <div className="col-5 border-end border-bottom">
                             <strong>Assignment Name:</strong> 
@@ -73,7 +73,8 @@ const AssignmentDetail = (props) => {
                         </div>
                     </div>           
                 </div>
-                <div className="col-6 border">
+                <div className="col-1"></div>
+                <div className={showRubricForm ? "col-6 border" : "col-6"}>
                     {showRubricForm ? RubricFormView : <span></span>}
                 </div>
             </div>

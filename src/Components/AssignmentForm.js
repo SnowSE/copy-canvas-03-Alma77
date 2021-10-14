@@ -38,36 +38,39 @@ const AssignmentForm = (props) =>{
         }        
     }
 
+    const inputValidated = hasBeenFocused ? "was-validated my-2" : "my-2"
+
     return(
         <div className="row border shadow p-5">
-            <div className="col-lg-6">
-                <form className="was-validated my-2" onSubmit={(e) => OnSubmitHandler(e)}>
+            <div className="col-2"></div>
+            <div className="col-lg-8">
+                <form className={inputValidated} novalidate onSubmit={(e) => OnSubmitHandler(e)}>
                     <div className="form-group">
-                        <label for="validationTextarea" className="form-label">New Assignment Name</label>
-                        <input type="text" className="form-control is-invalid" id="validationTextarea" placeholder="ex: New Assignment" onBlur={() => setHasBeenFocused(true)} onChange={(e) => setNewAssignmentName(e.target.value)} required/>
+                        <label className="form-label">New Assignment Name</label>
+                        <input type="text" className="form-control" placeholder="ex: New Assignment" onChange={(e) => setNewAssignmentName(e.target.value)} required/>
                     </div>
                     <div className="invalid-feedback">
                         Assignment Name can't be Blank
                     </div>
                     <div className="form-group">
                         <label for="validationTextarea" className="form-label">Assignment Description</label>
-                        <input type="text" className="form-control" placeholder="ex: Advanced Algorithms" onChange={(e) => setNewAssignmentDescription(e.target.value)} />
+                        <input type="text" className="form-control" placeholder="ex: Advanced Algorithms" onChange={(e) => setNewAssignmentDescription(e.target.value)} required />
                     </div>
                     <div className="form-group">
                         <label className="form-label">Due at</label>
-                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentDate(e.target.value)}/>
+                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentDate(e.target.value)} required/>
                     </div>
                     <div className="form-group">
                         <label className="form-label">Unlock at</label>
-                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentUnlockAt(e.target.value)}/>
+                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentUnlockAt(e.target.value)} required/>
                     </div>
                     <div className="form-group">
                         <label className="form-label">Lock at</label>
-                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentLockAt(e.target.value)}/>
+                        <input type="datetime-local" className="form-control" onChange={(e) => setNewAssignmentLockAt(e.target.value)} required/>
                     </div>
                     <div className="form-group">
                         <label className="form-label">Possible Points</label>
-                        <input type="numbers" className="form-control" onChange={(e) => setNewAssignmentPoints(e.target.value)} />
+                        <input type="numbers" className="form-control" onChange={(e) => setNewAssignmentPoints(e.target.value)} required/>
                     </div>
                     <div className="form-group">
                         <label className="form-label">Published</label>
@@ -80,16 +83,12 @@ const AssignmentForm = (props) =>{
                         
                     </div>
                     <div className="form-group mr-1">
-                        <button type="submit" className="btn btn-primary my-2">Save Assignment</button>
+                        <button type="submit" className="btn btn-primary my-2" onClick={()=>setHasBeenFocused(true)}>Save Assignment</button>
                         <burron className="btn btn-secondary" onClick={props.HideFormHandler}>Cancel</burron>
                     </div>
                 </form>
             </div>
-            <div className="col-lg-6">
-                <form>
-                    <Rubric />
-                </form>
-            </div>
+            <div className="col-2"></div>
         </div>                   
     )
 }
