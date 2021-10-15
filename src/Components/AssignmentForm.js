@@ -84,7 +84,7 @@ const AssignmentForm = (props) =>{
                     </div>
                     <div className="form-group mr-1">
                         <button type="submit" className="btn btn-primary my-2" onClick={()=>setHasBeenFocused(true)}>Save Assignment</button>
-                        <burron className="btn btn-secondary" onClick={props.HideFormHandler}>Cancel</burron>
+                        <button className="btn btn-secondary" onClick={props.HideFormHandler}>Cancel</button>
                     </div>
                 </form>
             </div>

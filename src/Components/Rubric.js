@@ -15,7 +15,7 @@ const Rubric = (props) => {
     const DeleteRowHandler = () => {
         const newRows = [...rows]
         newRows.pop()
-
+        
         setRows(newRows)
     }
 
@@ -45,13 +45,10 @@ const Rubric = (props) => {
             </div>
             <div className="row border-top">
                 <div className="col-4">
-                    <Plus />
-                    <button type="button" className="ml-1 btn btn-link" onClick={() => AddRowHandler()}>Add Criterion</button>
+                    <button type="button" className="ml-1 btn btn-link" onClick={() => AddRowHandler()}><Plus /></button>
+                    <button type="button" className="ml-1 btn btn-link" onClick={() => DeleteRowHandler()}><Delete /></button>
                 </div>
-                <div className="col-4">
-                    <Delete />
-                    <button type="button" className="ml-1 btn btn-link" onClick={() => DeleteRowHandler()}>Delete Criterion</button>
-                </div>
+                <span className="col-4"></span>
                 <div className="col-4 text-center mt-2">
                     <p>Total Points:</p>
                 </div>

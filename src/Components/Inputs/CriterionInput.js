@@ -2,7 +2,6 @@ import DescriptionInput from "./DescriptionInput";
 import RatingsInput from "./RatingsInput";
 import PointsInput from "./PointsInput";
 import { useState } from 'react'
-import { right } from "@popperjs/core";
 
 const RowInput = (props) => {
     const [descriptions, setDescriptions] = useState([])
@@ -11,27 +10,30 @@ const RowInput = (props) => {
     
     const AddDescriptionsHandler = (description, row) => {
         const newDescriptions = [...descriptions]
-        setDescriptions([newDescriptions[row], description])
+        newDescriptions[row] = description
+        setDescriptions(newDescriptions)
     }
 
     const AddRatingsHandler = (rating, row) => {
         const newRatings = [...ratings]
-        setRatings([newRatings[row], ...rating])
+        newRatings[row] = rating
+        setRatings(newRatings)
     }
 
     const AddPointsHandler = (point, row) => {
         const newPoints = [...points]
-        setPoints([newPoints[row], point])
+        newPoints[row] = point
+        setPoints(newPoints)
     }
 
     return (           
-        <div className="row border-bottom">{console.log(...descriptions)}{console.log(...ratings)}{console.log(...points)}{
+        <div>{console.log(...descriptions)}{console.log(...ratings)}{console.log(...points)}{
             props.rows.map(r => 
-                <>
+                <div className="row border-bottom">
                     <DescriptionInput row={r.id} key={"description" + r.id} AddDescriptionsHandler={AddDescriptionsHandler}/>
                     <RatingsInput row={r.id} key={"rating" + r.id} AddRatingsHandler={AddRatingsHandler}/>
                     <PointsInput row={r.id} key={"points" + r.id} AddPointsHandler={AddPointsHandler}/>
-                </>
+                </div>
             )}
         </div>
     )

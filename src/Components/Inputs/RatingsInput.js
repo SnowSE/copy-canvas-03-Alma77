@@ -11,7 +11,8 @@ const RatingsInput = (props) => {
         criterion_use_range: false,
         description: "",
         points: null,
-        id: "blank"
+        id: "blank",
+        column: null
     });
 
     const ExpandRatingHandler = () => {
@@ -25,12 +26,13 @@ const RatingsInput = (props) => {
         setNumColumns(currentNumColumns);
     }
 
-    const OnChangeHandler = (points) => {
+    const OnChangeHandler = (points, column) => {
         const newRating = {
             criterion_use_range: false,
             description: "",
             points: points,
             id: "blank",
+            column: column
         }
         const timeOutId = setTimeout(() => setRating(newRating), 1000)
         return () => clearTimeout(timeOutId)
@@ -38,7 +40,9 @@ const RatingsInput = (props) => {
 
     useEffect(() => {
         if(rating.points != null){
-            setRatings(prevState => [...prevState, rating])
+            const newRatings = [...ratings]
+            newRatings[rating.column] = rating  
+            setRatings(newRatings)
         }
     },[rating])
 
@@ -50,7 +54,7 @@ const RatingsInput = (props) => {
         <div className="col-4 border-end">
             <div className="row">{
                 numColumns.map(c =>
-                    <RatingInput key={c.id} OnChangeHandler={OnChangeHandler}/>
+                    <RatingInput column={c.id} key={c.id} OnChangeHandler={OnChangeHandler}/>
                 )}
                 <div className="col-1">
                     <div className="row">
