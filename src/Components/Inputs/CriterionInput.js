@@ -32,7 +32,7 @@ const RowInput = (props) => {
                 <div className="row border-bottom">
                     <DescriptionInput row={r.id} key={"description" + r.id} AddDescriptionsHandler={AddDescriptionsHandler}/>
                     <RatingsInput row={r.id} key={"rating" + r.id} AddRatingsHandler={AddRatingsHandler}/>
-                    <PointsInput row={r.id} key={"points" + r.id} AddPointsHandler={AddPointsHandler}/>
+                    <PointsInput ratings={ratings} row={r.id} key={"points" + r.id} AddPointsHandler={AddPointsHandler}/>
                 </div>
             )}
         </div>
