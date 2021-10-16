@@ -20,10 +20,12 @@ const RatingsInput = (props) => {
     }
 
     const CollapseRatingHandler = () => {
-        const currentNumColumns = [...numColumns]
-        currentNumColumns.pop()
-
-        setNumColumns(currentNumColumns);
+        if(numColumns.length != 1)
+        {
+            const currentNumColumns = [...numColumns]
+            currentNumColumns.pop()
+            setNumColumns(currentNumColumns);
+        }
     }
 
     const OnChangeHandler = (points, column) => {
@@ -54,8 +56,11 @@ const RatingsInput = (props) => {
         <div className="col-4 border-end">
             <div className="row">{
                 numColumns.map(c =>
-                    <RatingInput column={c.id} key={c.id} OnChangeHandler={OnChangeHandler}/>
+                    <RatingInput ratings={ratings} column={c.id} key={c.id} OnChangeHandler={OnChangeHandler}/>
                 )}
+                <div className="invalid-feedback">
+                    <p>A rating cannot be empty or have a value of 0</p>
+                </div>
                 <div className="col-1">
                     <div className="row">
                         <button type="button" className="btn btn-link" onClick={() => ExpandRatingHandler()}><NodePlus /></button>   

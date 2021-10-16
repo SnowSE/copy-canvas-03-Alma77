@@ -21,14 +21,21 @@ const PointsInput = (props) =>  {
     };
 
     const OnBlurHandler = () => {
-        if(points.value == props.ratings[props.row-1][0].points)
+        if(props.ratings[props.row-1][0] === undefined)
         {
-            setIsValid(true)
+            setHasBeenFocused(true)
         }
         else{
-            setIsValid(false)
+            
+            if(points.value >= props.ratings[props.row-1][0].points )
+            {
+                setIsValid(true)
+            }
+            else{
+                setIsValid(false)
+            }
         }
-        setHasBeenFocused(true)
+        
     }
 
     useEffect(() => {
@@ -43,9 +50,9 @@ const PointsInput = (props) =>  {
         <div className="col-4">
             <div className="row">
                 <div className="col">
-                    <input type="number" className={hasBeenFocused ? Valid : "form-control"} onBlur={() => OnBlurHandler()} onChange={(e) => OnChangeHandler(e.target.value)}></input>
+                    <input type="number" className={hasBeenFocused ? Valid : "form-control"} onBlur={() => OnBlurHandler()} onChange={(e) => OnChangeHandler(e.target.value)} required></input>
                     <div className="invalid-feedback">
-                        <p>Can't be less than highest rating points.</p>
+                        <p>Can't be less than highest point rating</p>
                     </div>
                 </div>
                 <div className="col">

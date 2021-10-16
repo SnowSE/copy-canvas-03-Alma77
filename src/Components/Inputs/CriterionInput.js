@@ -1,7 +1,7 @@
 import DescriptionInput from "./DescriptionInput";
 import RatingsInput from "./RatingsInput";
 import PointsInput from "./PointsInput";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const RowInput = (props) => {
     const [descriptions, setDescriptions] = useState([])
@@ -25,6 +25,10 @@ const RowInput = (props) => {
         newPoints[row] = point
         setPoints(newPoints)
     }
+
+    useEffect(() =>{
+        props.AddRubric(descriptions, ratings, points)
+    },[descriptions, ratings, points])
 
     return (           
         <div>{console.log(...descriptions)}{console.log(...ratings)}{console.log(...points)}{

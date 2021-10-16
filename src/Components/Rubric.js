@@ -2,29 +2,91 @@ import { useState } from 'react'
 import CriterionInput from './Inputs/CriterionInput';
 import Plus from './Icons/Plus';
 import Delete from './Icons/Delete'
+import axios from 'axios'
 
 
 const Rubric = (props) => {
 
     const [rows, setRows] = useState([{id: 1}])
-    const [criterion, setCriterion] = useState([{}])
+    const [rubric, setRubric] = useState({
+        rubric_id: 0,
+        rubric: null,
+    })
+
+    const baseURL = "api/v1";
+    const Token = 'Bearer NdXKzjoZbDzm9ve8KNaoz3B0QwSFyOOktdGTO1wqSjhac1RcN3aMAOq0FGOqr9Ja';
+    const courseID = '27';
+    const header = { 
+        headers: {
+            Authorization: Token,
+            "Access-Control-Allow-Origin": "*",
+        }
+    }
 
     const AddRowHandler = () => {
         setRows(prevState => [...prevState, {id: prevState[prevState.length-1].id+1}])
     }
     const DeleteRowHandler = () => {
-        const newRows = [...rows]
-        newRows.pop()
+        if(rows.length != 1)
+        {
+           const newRows = [...rows]
+           newRows.pop()
         
-        setRows(newRows)
+           setRows(newRows) 
+        }        
     }
 
-    const AddCriterion = (criterion) => {
-        setCriterion(prevState => [...prevState, criterion])
+    const AddRubric = (descriptions, ratings, points) => {
+        const Criteria = []
+        const Ratings = []
+
+        for(let i = 0; i < ratings.length; i++)
+        {
+            Ratings[i] = {
+                criterion_use_range: false,
+                description: "",
+                points: ratings[i].points,
+                id: "blank"
+            }
+        }
+
+        for(let i = 0; i < rows.length; i++)
+        {
+            Criteria[i] = {
+                description: descriptions[i],
+                points: points[i],
+                criterion_use_range: false,
+                ratings: [...Ratings]
+            }
+        }
+        const Criterion = {
+            title: props.assignment.name,
+            free_form_criterion_comments: true,
+            points_possible: props.assignment.points_possible,
+            criteria: [...Criteria]
+        }
+
+        const Rubric = {
+            rubric_id: rubric.rubric_id+1,
+            rubric: {...Criterion}
+        }
+
+        setRubric(Rubric)
+    }
+
+    const OnSubmitHandler = async (event) => {
+        event.preventDefault()
+        const rubric_association = {
+            association_id: props.assignment.id,
+            association_type: "Assignment",
+            purpose: "grading"
+        }
+        await axios.post(baseURL + "/courses/" + courseID + "/rubrics", {rubric: {...rubric}, rubric_association: {...rubric_association}}, header)
+        props.HideRubricFormHandler()
     }
 
     return(
-        <form>
+        <form onSubmit={(e) => OnSubmitHandler(e)}>
             <div className="col-12 p-2 border-bottom">
                 <label><strong>Title:</strong></label>
                 <input value={props.assignment.name} type="text" className="m-1 w-33"/>
@@ -41,7 +103,7 @@ const Rubric = (props) => {
                 </div>
             </div>
             <div className="row border-top">
-                <CriterionInput rows={rows} AddCriterion={AddCriterion}/>
+                <CriterionInput rows={rows} AddRubric={AddRubric}/>
             </div>
             <div className="row border-top">
                 <div className="col-4">

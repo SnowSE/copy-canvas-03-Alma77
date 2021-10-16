@@ -7,6 +7,9 @@ const DescriptionInput = (props) => {
         row: props.row
     });
 
+    const [hasBeenFocused, setHasBeenFocused] = useState(false)
+    const [isValid, setIsValid] = useState(false)
+
     const OnChangeHandler = (description) => {
         const newDescription = {
             value: description,
@@ -16,6 +19,21 @@ const DescriptionInput = (props) => {
         return () => clearTimeout(timeOutId)
     };
 
+    const OnBlurHandler = () => {
+        if(description.value.trim() != "")
+        {
+            setIsValid(true)
+        }
+        else{
+            setIsValid(false)
+        }
+        setHasBeenFocused(true)
+    }
+
+    const Valid = (
+        isValid ? "form-control is-valid" : "form-control is-invalid"
+    )
+
     useEffect(() =>{
         props.AddDescriptionsHandler(description.value, description.row-1)
     },[description])
@@ -23,7 +41,10 @@ const DescriptionInput = (props) => {
     return(
         <div className="col-4 border-end">
             <label className="form-label"><strong>Description:</strong></label>
-            <textarea type="text" className="form-control" onChange={(e) => OnChangeHandler(e.target.value)}></textarea>
+            <textarea type="text" className={hasBeenFocused ? Valid : "form-control"} onBlur={() => OnBlurHandler()} onChange={(e) => OnChangeHandler(e.target.value)} required></textarea>
+            <div className="invalid-feedback">
+                <p>The Criteria should have a description</p>
+            </div>
         </div>
     )
 }
