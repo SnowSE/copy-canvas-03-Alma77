@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CriterionInput from './Inputs/CriterionInput';
 import Plus from './Icons/Plus';
 import Delete from './Icons/Delete'
@@ -8,13 +8,19 @@ import axios from 'axios'
 const Rubric = (props) => {
 
     const [rows, setRows] = useState([{id: 1}])
+    const [totalPoints, setTotalPoints] = useState(0)
     const [rubric, setRubric] = useState({
         rubric_id: 0,
-        rubric: null,
+        rubric: {
+            title: "",
+            free_form_criterion_comments: true,
+            points_possible: 0,
+            criteria: []
+        }
     })
 
     const baseURL = "api/v1";
-    const Token = 'Bearer NdXKzjoZbDzm9ve8KNaoz3B0QwSFyOOktdGTO1wqSjhac1RcN3aMAOq0FGOqr9Ja';
+    const Token = 'Bearer HhQcX7hWv3AZxMnB22tHXv0OuEUbEO4beEIf9W4apl8lqbIGIJLycbY8If1NCXer';
     const courseID = '27';
     const header = { 
         headers: {
@@ -35,6 +41,23 @@ const Rubric = (props) => {
            setRows(newRows) 
         }        
     }
+
+    const UpdatePoints = () => {
+        if(rubric.rubric.criteria.length != 0)
+        {
+            var sum = 0;
+            for(let i = 0; i < rows.length; i++)
+            {
+                sum = Number(sum) + Number(rubric.rubric.criteria[i].points)
+            }
+
+            setTotalPoints(sum);
+        }        
+    }
+
+    useEffect(() => {
+           UpdatePoints();
+    },[rubric.rubric])
 
     const AddRubric = (descriptions, ratings, points) => {
         const Criteria = []
@@ -112,7 +135,7 @@ const Rubric = (props) => {
                 </div>
                 <span className="col-4"></span>
                 <div className="col-4 text-center mt-2">
-                    <p>Total Points:</p>
+                    <p>Total Points: {totalPoints}</p>
                 </div>
             </div>
             <div className="row border-top">
